@@ -33,15 +33,6 @@ kisdnnetcontrol::~kisdnnetcontrol()
 void kisdnnetcontrol::load()
 {
     // insert your loading code here...
-
-	QDir dir( "/usr/share/apps/kisdnnet/cardpool/");
-	KStandardDirs dirs;
-	debug("%s", dirs.findResource( "data", "kisdnnet/cardpool/avm_classic.conf" ).latin1() );
-    for ( uint i = 0; i < dir.count(); i++ ) {
-		if( dir[i].right(4) == "conf" ){
-			debug( "%s", dir[i].latin1() );
-		}
-	}
 }
 
 
@@ -85,7 +76,7 @@ void kisdnnetcontrol::editClicked()
 	QDir dir( str );
 	  for ( uint i = 0; i < dir.count(); i++ ) {
 		if( dir[i].right(4) == "conf" ){
-			debug( "%s", dir[i].latin1() );
+
 		}
 	}
 
