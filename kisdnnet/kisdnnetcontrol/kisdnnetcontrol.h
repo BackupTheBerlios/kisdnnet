@@ -21,6 +21,9 @@ public:
     virtual QString quickHelp() const;
     virtual const KAboutData *aboutData()
     { return myAboutData; };
+protected:
+	QString findResourceFile( );
+	QString findCardConfig();
 
 public slots:
     void configChanged();
@@ -29,6 +32,9 @@ public slots:
 private:
       KAboutData *myAboutData;
 	  KCMWidget *widget;
+	  QString type;
+	  QString configFile;
+	  QString resourceFile;
 };
 
 #endif

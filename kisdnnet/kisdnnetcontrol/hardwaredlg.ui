@@ -35,7 +35,7 @@
                 </property>
             </column>
             <property name="name">
-                <cstring>lh</cstring>
+                <cstring>lv</cstring>
             </property>
             <property name="resizeMode">
                 <enum>AllColumns</enum>
@@ -217,5 +217,11 @@
         <slot>reject()</slot>
     </connection>
 </connections>
+<includes>
+    <include location="local" impldecl="in implementation">hardwaredlg.ui.h</include>
+</includes>
+<functions>
+    <function>init()</function>
+</functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
