@@ -1,0 +1,15 @@
+Makefile
+Makefile.in
+*.o
+*.la
+*.lo
+*.moc
+.deps
+.libs
+ispedit.cpp
+ispedit.h
+ispwizard.cpp
+ispwizard.h
+carddialog.h
+carddilaog.cpp
+kisdnnet

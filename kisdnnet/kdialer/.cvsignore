@@ -1,0 +1,13 @@
+Makefile
+Makefile.in
+kdialer
+*.o
+*.la
+*.lo
+*.moc
+.deps
+.libs
+dialindlg.cpp
+dialindlg.h
+info.cpp
+info.h

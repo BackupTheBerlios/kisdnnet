@@ -1,0 +1,12 @@
+Makefile
+Makefile.in
+*.o
+*.la
+*.lo
+*.moc
+.deps
+.libs
+kcmwidget.h
+kcmwidget.cpp
+hardwaredlg.cpp
+hardwaredlg.h
