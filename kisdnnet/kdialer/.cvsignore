@@ -5,6 +5,7 @@ kdialer
 *.la
 *.lo
 *.moc
+*.moc.cpp
 .deps
 .libs
 dialindlg.cpp
