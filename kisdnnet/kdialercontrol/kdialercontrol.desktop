@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Comment=kdialercontrol - a kcontol module
+Exec=kcmshell kdialercontrol
+Keywords=kdialercontrol,kdialercontrol
+Name=Internet Connection
+Terminal=false
+Icon=kppp
+Type=Application
+X-KDE-FactoryName=kdialercontrol
+X-KDE-Library=kdialercontrol
+X-KDE-ModuleType=Library
+X-KDE-ParentApp=kcontrol
+X-KDE-RootOnly=true

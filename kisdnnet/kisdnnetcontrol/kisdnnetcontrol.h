@@ -5,6 +5,7 @@
 #include <kaboutdata.h>
 
 class KCMWidget;
+class QListViewItem;
 
 class kisdnnetcontrol: public KCModule
 {
@@ -24,10 +25,14 @@ public:
 protected:
 	QString findResourceFile( );
 	QString findCardConfig();
+	bool createConfig();
 
 public slots:
     void configChanged();
 	void editClicked();
+	void receivedError( KProcess *, char *buff, int len );
+	void infoReceived( KProcess *, char *buff, int len );
+	void valueChanged( QListViewItem *item, int );
 
 private:
       KAboutData *myAboutData;

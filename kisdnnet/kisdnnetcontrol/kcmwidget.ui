@@ -60,7 +60,7 @@
                         <enum>AllColumns</enum>
                     </property>
                     <property name="defaultRenameAction">
-                        <enum>Accept</enum>
+                        <enum>Reject</enum>
                     </property>
                 </widget>
             </grid>

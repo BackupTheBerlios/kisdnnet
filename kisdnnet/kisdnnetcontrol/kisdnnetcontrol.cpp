@@ -13,11 +13,24 @@
 #include <kstandarddirs.h>
 #include <kdebug.h>
 #include <kconfig.h>
+#include <ksimpleconfig.h>
 #include <kiconloader.h>
+#include <kprocess.h>
+#include <kmessagebox.h>
 
 #include "kisdnnetcontrol.h"
 #include "hardwaredlg.h"
 #include "kcmwidget.h"
+
+extern "C"
+{
+
+    KCModule *create_kisdnnetcontrol(QWidget *parent, const char *name)
+    {
+        KGlobal::locale()->insertCatalogue("kisdnnetcontrol");
+        return new kisdnnetcontrol(parent, "kisdnnetcontrol");
+    }
+}
 
 kisdnnetcontrol::kisdnnetcontrol(QWidget *parent, const char *name)
     : KCModule(parent, name)
@@ -46,10 +59,18 @@ void kisdnnetcontrol::load()
 	widget->lv->clear();
 	QString rName, rValue;
 	configFile = findCardConfig();
+	if( configFile.isEmpty() ){
+		widget->cardInfo->setText( i18n("No installed card found!") );
+		return;
+	}
 	KConfig c_config( configFile );
 	type = c_config.readEntry( "I4L_TYPE", "");
 	type = type.replace( QRegExp("\""), "") ;
 	resourceFile = findResourceFile( );
+	if( resourceFile.isEmpty() ){
+		widget->cardInfo->setText( i18n("Your installed card is not in the database!") );
+		return;
+	}
 	KConfig r_config( resourceFile );
 	r_config.setGroup( "Global");
 	widget->cardInfo->setText( r_config.readEntry( "Description","")  );
@@ -62,6 +83,8 @@ void kisdnnetcontrol::load()
 		rName = r_config.readEntry( "Name" );
 		QListViewItem *item =  new QListViewItem( widget->lv, rName, rValue );
 		item->setPixmap(0, KGlobal::instance() ->iconLoader() ->loadIcon( "kcmpci" , KIcon::NoGroup , KIcon::SizeSmall ));
+		item->setRenameEnabled( 1, TRUE );
+		connect( widget->lv, SIGNAL( itemRenamed( QListViewItem *, int ) ), this, SLOT( valueChanged( QListViewItem *, int ) ));
 	}
 }
 
@@ -107,7 +130,31 @@ void kisdnnetcontrol::defaults()
 void kisdnnetcontrol::save()
 {
     // insert your saving code here...
-    emit changed(true);
+	if( createConfig() ){
+		KProcess *proc = new KProcess;
+		*proc << "/etc/init.d/isdn4linux" << "restart";
+		//*proc << "restart";
+		connect( proc, SIGNAL( receivedStderr( KProcess *, char *, int ) ),this, SLOT( receivedError( KProcess *, char * , int ) ) );
+		connect( proc, SIGNAL( receivedStdout( KProcess *, char *, int ) ),this, SLOT( infoReceived( KProcess *, char * , int ) ) );
+		proc->start( KProcess::NotifyOnExit, KProcess::AllOutput );
+	}
+	else{
+		KMessageBox::error( this, i18n("Cannot create the ISDN config file!") );
+	}
+		//proc->resume();
+    //emit changed(true);
+}
+
+void kisdnnetcontrol::receivedError( KProcess *, char *buff, int len )
+{
+	QString str =  QString::fromLatin1(buff,len);
+	KMessageBox::information( this, str,"ISDN error" );
+}
+
+void kisdnnetcontrol::infoReceived( KProcess *, char *buff, int len )
+{
+	QString str =  QString::fromLatin1(buff,len);
+	//KMessageBox::information( this, str,"bla" );
 }
 
 
@@ -135,15 +182,42 @@ void kisdnnetcontrol::editClicked()
 	dlg.exec();
 }
 
-
-extern "C"
+bool kisdnnetcontrol::createConfig()
 {
-
-    KCModule *create_kisdnnetcontrol(QWidget *parent, const char *name)
-    {
-        KGlobal::locale()->insertCatalogue("kisdnnetcontrol");
-        return new kisdnnetcontrol(parent, "kisdnnetcontrol");
-    }
+	QString name, value, i4l_name;
+	KSimpleConfig c_config( configFile );
+	KConfig r_config( resourceFile );
+	r_config.setGroup( "Global" );
+	QStringList list = r_config.readListEntry( "Resources");
+	c_config.writeEntry( "I4L_ID", "\"" + r_config.readEntry( "Card ID" ) + "\"" );
+	c_config.writeEntry( "I4L_TYPE", "\"" + r_config.readEntry( "Card Type" ) + "\"" );
+	c_config.writeEntry( "I4L_MODULE", "\"" + r_config.readEntry( "Module" ) + "\"" );
+	// write resources
+	for( uint i = 0; i < list.count(); i++ ){
+		r_config.setGroup( list[i] );
+		i4l_name	= r_config.readEntry( "I4L" );
+		name		= r_config.readEntry( "Name" );
+		QListViewItem *item = widget->lv->findItem( name, 0 );
+		if( item ){
+			value = item->text( 1 );
+			c_config.writeEntry( i4l_name, "\"" + value + "\"" );
+		}
+		else
+			return false;
+	}
+	return TRUE;
 }
+
+void kisdnnetcontrol::valueChanged( QListViewItem *item, int )
+{
+	if( item->text(1).isEmpty() )
+		emit changed( FALSE );
+	else
+		emit changed( TRUE );
+}
+
+
+
+
 
 #include "kisdnnetcontrol.moc"

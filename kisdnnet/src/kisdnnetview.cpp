@@ -25,9 +25,6 @@ KISDNnetView::KISDNnetView(QWidget *parent)
     top_layout->setAutoAdd(true);
 	view = new QIconView( this );
 	connect( view, SIGNAL( doubleClicked( QIconViewItem* ) ), parent, SLOT( itemDoubleClicked( QIconViewItem* ) ) );
-
-	Card *card = new Card( this );
-	card->read( "mycard" );
 }
 
 KISDNnetView::~KISDNnetView()

@@ -269,10 +269,7 @@ void KISDNnet::itemDoubleClicked( QIconViewItem *item )
 		QString device = ipppMap->getDevice( isp->file );
 		debug( device.latin1() );
 		if( device != QString::null ){
-			KProcess proc;
-			proc << "kdialer";
-			proc << device << isp->fileName;
-			proc.start( KProcess::DontCare);
+
 		}
 	}
 }

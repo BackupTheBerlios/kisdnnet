@@ -1,11 +1,14 @@
 [Desktop Entry]
 Encoding=UTF-8
-Comment=kisdnnetcontrol - a kcontol module
+Comment=KISDNnet - a kcontol module for isdn4net
 Exec=kcmshell kisdnnetcontrol
-Keywords=kisdnnetcontrol,kisdnnetcontrol
-Name=The kisdnnetcontrol applet
+Keywords=kisdnnetcontrol,kisdnnetcontrol,isdn4net,isdn
+Name=ISDN
 Terminal=false
+Icon=kcmpci
 Type=Application
 X-KDE-FactoryName=kisdnnetcontrol
 X-KDE-Library=kisdnnetcontrol
 X-KDE-ModuleType=Library
+X-KDE-RootOnly=true
+X-KDE-HasReadOnlyMode=true
