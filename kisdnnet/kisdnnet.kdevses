@@ -1,0 +1,26 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE KDevPrjSession>
+<KDevPrjSession>
+ <DocsAndViews NumberOfDocuments="3" >
+  <Doc0 NumberOfViews="1" URL="file:/home/olaf/kisdnnet/kisdnnetcontrol/kisdnnetcontrol.cpp" >
+   <View0 line="89" Type="???" >
+    <AdditionalSettings/>
+   </View0>
+  </Doc0>
+  <Doc1 NumberOfViews="1" URL="file:/home/olaf/kisdnnet/src/kisdnnet.cpp" >
+   <View0 line="248" Type="???" >
+    <AdditionalSettings/>
+   </View0>
+  </Doc1>
+  <Doc2 NumberOfViews="1" URL="file:/home/olaf/kisdnnet/kisdnnetcontrol/kisdnnetcontrol.h" >
+   <View0 line="26" Type="???" >
+    <AdditionalSettings/>
+   </View0>
+  </Doc2>
+ </DocsAndViews>
+ <pluginList>
+  <kdevdebugger>
+   <breakpointList/>
+  </kdevdebugger>
+ </pluginList>
+</KDevPrjSession>

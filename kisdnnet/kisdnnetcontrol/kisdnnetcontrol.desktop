@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Comment=kisdnnetcontrol - a kcontol module
+Exec=kcmshell kisdnnetcontrol
+Keywords=kisdnnetcontrol,kisdnnetcontrol
+Name=The kisdnnetcontrol applet
+Terminal=false
+Type=Application
+X-KDE-FactoryName=kisdnnetcontrol
+X-KDE-Library=kisdnnetcontrol
+X-KDE-ModuleType=Library

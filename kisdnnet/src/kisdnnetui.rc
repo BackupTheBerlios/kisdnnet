@@ -1,0 +1,11 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="kisdnnet" version="2">
+<MenuBar>
+  <Menu name="file">
+  	<text>&amp;File</text>
+    <Action name="hardware"/>
+	<Separator/>
+	<Action name="newISP"/>
+  </Menu>
+</MenuBar>
+</kpartgui>
